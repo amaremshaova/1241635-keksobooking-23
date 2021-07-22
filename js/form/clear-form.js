@@ -1,4 +1,4 @@
-import {map, marker, INITCOORDS, ZOOM_NUMBER} from '../map/init-map.js';
+import {map, marker, INIT_COORDS, ZOOM_NUMBER} from '../map/init-map.js';
 import {MinPriceValues} from './validation-price.js';
 import {addAddress} from './add-address.js';
 
@@ -11,10 +11,10 @@ const previewAvatar = document.querySelector('.ad-form-header__preview img');
 
 const clearForm = () => {
   adForm.reset();
-  marker.setLatLng(INITCOORDS);
+  marker.setLatLng(INIT_COORDS);
   map.setView({
-    lat: INITCOORDS.lat,
-    lng: INITCOORDS.lng,
+    lat: INIT_COORDS.lat,
+    lng: INIT_COORDS.lng,
   }, ZOOM_NUMBER);
   addAddress(marker.getLatLng());
 

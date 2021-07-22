@@ -5,6 +5,11 @@ const errorButton =document.querySelector('#error').content.querySelector('.erro
 
 const isEscEvent = (evt) => evt.key === 'Escape' || evt.key === 'Esc';
 
+let closeSuccessModal = () =>{};
+let closeErrorModal = () => {};
+let openErrorModal = () => {};
+let openSuccessModal = () => {};
+
 const onSuccessModalEscKeydown = (evt) => {
   if (isEscEvent(evt)) {
     evt.preventDefault();
@@ -32,7 +37,7 @@ const onButtonCloseClick = () => {
 };
 
 
-const openErrorModal = () => {
+openErrorModal = () => {
   if (errorModal)  {
     errorModal.classList.remove('hidden');
 
@@ -42,7 +47,7 @@ const openErrorModal = () => {
   }
 };
 
-const closeErrorModal = () => {
+closeErrorModal = () => {
   if (errorModal) {
     errorModal.classList.add('hidden');
 
@@ -53,7 +58,7 @@ const closeErrorModal = () => {
 };
 
 
-const openSuccessModal = () => {
+openSuccessModal = () => {
   if (successModal)  {
     successModal.classList.remove('hidden');
 
@@ -62,7 +67,7 @@ const openSuccessModal = () => {
   }
 };
 
-const closeSuccessModal = () => {
+closeSuccessModal = () => {
   if (successModal) {
     successModal.classList.add('hidden');
     document.removeEventListener('keydown', onSuccessModalEscKeydown);
