@@ -8,6 +8,8 @@ const MinPriceValues = {
 
 const MAX_PRICE = 1000000;
 
+const STYLE_ERROR = '5px solid red';
+
 const setMinPrice = (typeSelect) => {
   switch (typeSelect.options[typeSelect.selectedIndex].text){
     case 'Квартира' : {
@@ -32,15 +34,15 @@ const setMinPrice = (typeSelect) => {
   }
 };
 
-const validationPriceInput = (priceInput, typeSelect) =>{
+const checkValidationPriceInput = (priceInput, typeSelect) =>{
   const minPrice = setMinPrice(typeSelect);
   const value = priceInput.value;
   if (value < minPrice) {
     priceInput.setCustomValidity(`Минимальная цена при таком выборе типа жилья - ${minPrice}`);
-    priceInput.style.border = '5px solid red';
+    priceInput.style.border = STYLE_ERROR;
   } else if (value > MAX_PRICE) {
     priceInput.setCustomValidity(`Максимальная цена при таком выборе типа жилья - ${MAX_PRICE}`);
-    priceInput.style.border = '5px solid red';
+    priceInput.style.border = STYLE_ERROR;
   } else {
     priceInput.setCustomValidity('');
     priceInput.style.border = 'none';
@@ -49,4 +51,4 @@ const validationPriceInput = (priceInput, typeSelect) =>{
   priceInput.reportValidity();
 };
 
-export {MinPriceValues, validationPriceInput};
+export {MinPriceValues, checkValidationPriceInput};

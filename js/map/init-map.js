@@ -10,14 +10,14 @@ const ZOOM_NUMBER = 10;
 
 const MainIconData = {
   URL : 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/main-pin.svg',
-  SIZE : [52, 52],
-  ANCHOR : [26, 52],
+  SIZE_VALUES : [52, 52],
+  ANCHOR_COORDS : [26, 52],
 };
 
 const IconData = {
   URL : 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg',
-  SIZE : [40, 40],
-  ANCHOR : [20, 40],
+  SIZE_VALUES : [40, 40],
+  ANCHOR_COORDS : [20, 40],
 };
 
 
@@ -39,8 +39,8 @@ L.tileLayer(
 
 const mainPinIcon = L.icon({
   iconUrl: MainIconData.URL,
-  iconSize: MainIconData.SIZE,
-  iconAnchor: MainIconData.ANCHOR});
+  iconSize: MainIconData.SIZE_VALUES,
+  iconAnchor: MainIconData.ANCHOR_COORDS});
 
 
 const marker = L.marker(
@@ -56,7 +56,6 @@ const marker = L.marker(
 );
 
 marker.addTo(map);
-addAddress(INIT_COORDS);
 
 marker.on('moveend', (evt) => {
   addAddress(evt.target.getLatLng());

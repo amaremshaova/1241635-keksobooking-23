@@ -1,8 +1,8 @@
-import {validationTitleInput} from './validation-title.js';
+import {checkValidationTitleInput} from './validation-title.js';
 import {changePlaceholderPriceInput} from './change-placeholder-price.js';
-import {validationPriceInput} from './validation-price.js';
-import {validationNumberRoomSelect} from './validation-room-number.js';
-import {validationTimeSelect} from './validation-time.js';
+import {checkValidationPriceInput} from './validation-price.js';
+import {checkValidationNumberRoomSelect} from './validation-room-number.js';
+import {checkValidationTimeSelect} from './validation-time.js';
 
 const titleInput = document.querySelector('#title');
 const priceInput = document.querySelector('#price');
@@ -13,16 +13,16 @@ const timeInSelect = document.querySelector('#timein');
 const timeOutSelect = document.querySelector('#timeout');
 
 timeInSelect.addEventListener('change', (evt) => {
-  validationTimeSelect(evt, timeInSelect, timeOutSelect);
+  checkValidationTimeSelect(evt, timeInSelect, timeOutSelect);
 });
 
 timeOutSelect.addEventListener('change', (evt) => {
-  validationTimeSelect(evt,timeInSelect, timeOutSelect);
+  checkValidationTimeSelect(evt,timeInSelect, timeOutSelect);
 });
 
 
 titleInput.addEventListener('input', () => {
-  validationTitleInput(titleInput);
+  checkValidationTitleInput(titleInput);
 });
 
 typeSelect.addEventListener('change', () => {
@@ -30,13 +30,13 @@ typeSelect.addEventListener('change', () => {
 });
 
 roomNumberSelect.addEventListener('change', () => {
-  validationNumberRoomSelect(roomNumberSelect, capacitySelect);
+  checkValidationNumberRoomSelect(roomNumberSelect, capacitySelect);
 });
 
 capacitySelect.addEventListener('change', () => {
-  validationNumberRoomSelect(roomNumberSelect, capacitySelect);
+  checkValidationNumberRoomSelect(roomNumberSelect, capacitySelect);
 });
 
 priceInput.addEventListener('input', () => {
-  validationPriceInput(priceInput, typeSelect);
+  checkValidationPriceInput(priceInput, typeSelect);
 });

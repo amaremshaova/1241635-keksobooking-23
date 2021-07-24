@@ -98,7 +98,7 @@ const setDishwasherFilter = (cb) =>{
   if (dishwasherFilter) {
     dishwasherFilter.addEventListener('change', () => {
       if (dishwasherInput){
-        dishwasherInput.checked = dishwasherFilter.checked;
+        dishwasherInput.value = 'dishwasher';
       }
       cb();
     });
@@ -109,7 +109,7 @@ const setWifiFilter = (cb) =>{
   if (wifiFilter) {
     wifiFilter.addEventListener('change', () => {
       if (wifiInput){
-        wifiInput.checked = wifiFilter.checked;
+        wifiInput.value = 'wifi';
       }
       cb();
     });
@@ -121,7 +121,7 @@ const setParkingFilter = (cb) =>{
   if (parkingFilter) {
     parkingFilter.addEventListener('change', () => {
       if (parkingInput){
-        parkingInput.checked = parkingFilter.checked;
+        parkingInput.value = 'parking';
       }
       cb();
     });
@@ -132,7 +132,7 @@ const setWasherFilter = (cb) =>{
   if (washerFilter) {
     washerFilter.addEventListener('change', () => {
       if (washerInput){
-        washerInput.checked = washerFilter.checked;
+        washerInput.value = 'washer';
       }
       cb();
     });
@@ -143,7 +143,7 @@ const setElevatorFilter = (cb) =>{
   if (elevatorFilter) {
     elevatorFilter.addEventListener('change', () => {
       if (elevatorInput){
-        elevatorInput.checked = elevatorFilter.checked;
+        elevatorInput.value = 'elevator';
       }
       cb();
     });
@@ -154,7 +154,7 @@ const setConditionerFilter = (cb) =>{
   if (conditionerFilter) {
     conditionerFilter.addEventListener('change', () => {
       if (conditionerInput){
-        conditionerInput.checked = conditionerFilter.checked;
+        conditionerInput.value = 'conditioner';
       }
       cb();
     });

@@ -5,7 +5,6 @@ const adForm = document.querySelector('.ad-form');
 const setAdFormSubmit = (sendData, onSuccessModalOpen, onErrorModalOpen) => {
   if (adForm) {
     adForm.addEventListener('submit', (evt) => {
-      //console.log(new FormData(adForm));
       evt.preventDefault();
 
       sendData(

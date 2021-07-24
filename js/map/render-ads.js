@@ -29,94 +29,18 @@ const washerInput = filtersForm.querySelector('[name="washer-filter"]');
 const elevatorInput = filtersForm.querySelector('[name="elevator-filter"]');
 const conditionerInput = filtersForm.querySelector('[name="conditioner-filter"]');
 
-let featuresArray = [];
-
-const getFeaturesArray = () => {
-
-  if (featuresArray.length !== 0){
-    featuresArray = featuresArray.filter((elem, index) => index < 0);
-  }
-
-  if (wifiInput.checked){
-    featuresArray.push('wifi');
-  }
-  else {
-    if (featuresArray.includes('wifi')){
-      featuresArray.splice(featuresArray.findIndex((el) => el === 'wifi'), 1);
-    }
-  }
-
-  if (dishwasherInput.checked){
-    featuresArray.push('dishwasher');
-  }  else {
-    if (featuresArray.includes('dishwasher')){
-      featuresArray.splice(featuresArray.findIndex((el) => el === 'dishwasher'), 1);
-    }
-  }
-
-  if (parkingInput.checked){
-    featuresArray.push('parking');
-  }else {
-    if (featuresArray.includes('parking')){
-      featuresArray.splice(featuresArray.findIndex((el) => el === 'parking'), 1);
-    }
-  }
-
-  if (washerInput.checked){
-    featuresArray.push('washer');
-  } else {
-    if (featuresArray.includes('washer')){
-      featuresArray.splice(featuresArray.findIndex((el) => el === 'washer'), 1);
-    }
-  }
-
-  if (elevatorInput.checked){
-    featuresArray.push('elevator');
-  }else {
-    if (featuresArray.includes('elevator')){
-      featuresArray.splice(featuresArray.findIndex((el) => el === 'elevator'), 1);
-    }
-  }
-
-  if (conditionerInput.checked){
-    featuresArray.push('conditioner');
-  }else {
-    if (featuresArray.includes('conditioner')){
-      featuresArray.splice(featuresArray.findIndex((el) => el === 'conditioner'), 1);
-    }
-  }
-};
-
-const useFilters = (ads) => {
-
-  let afterFilteringAdsArray = ads.filter((ad) =>
-    ad.offer.type === typeInput.value || typeInput.value === DEFAULT_VALUE);
-
-  afterFilteringAdsArray = afterFilteringAdsArray.filter((ad) =>
-    ad.offer.price >= priceMinInput.value && ad.offer.price <= priceMaxInput.value);
-
-  afterFilteringAdsArray = afterFilteringAdsArray.filter((ad) =>
-    ad.offer.rooms === Number(roomsInput.value) ||  roomsInput.value === DEFAULT_VALUE);
-
-  afterFilteringAdsArray = afterFilteringAdsArray.filter((ad) =>
-    ad.offer.guests === Number(guestsInput.value) || guestsInput.value === DEFAULT_VALUE);
-
-  getFeaturesArray();
-
-  afterFilteringAdsArray = afterFilteringAdsArray.filter((ad) => {
-
-    let featuresCopy = undefined;
-    if (ad.offer.features !== undefined){
-      featuresCopy = ad.offer.features.slice();
-    }
-
-    return ((featuresArray.length === 0) ||
-    (featuresCopy !== undefined &&
-      featuresCopy.sort().join(',').indexOf(featuresArray.sort().join(',')) !== -1));
-  });
-
-  return afterFilteringAdsArray;
-};
+const useFilters = (ads) => ads.filter((ad) =>
+  (ad.offer.type === typeInput.value || typeInput.value === DEFAULT_VALUE) &&
+  (ad.offer.price >= Number(priceMinInput.value) && ad.offer.price <= Number(priceMaxInput.value)) &&
+  (ad.offer.rooms === Number(roomsInput.value) ||  roomsInput.value === DEFAULT_VALUE) &&
+  (ad.offer.guests === Number(guestsInput.value) || guestsInput.value === DEFAULT_VALUE) &&
+  ((ad.offer.features !== undefined) &&
+  ((wifiInput.value === DEFAULT_VALUE || ad.offer.features.indexOf(wifiInput.value) !== -1) &&
+  (dishwasherInput.value === DEFAULT_VALUE || ad.offer.features.indexOf(dishwasherInput.value) !== -1) &&
+  (washerInput.value === DEFAULT_VALUE || ad.offer.features.indexOf(washerInput.value) !== -1) &&
+  (parkingInput.value === DEFAULT_VALUE || ad.offer.features.indexOf(parkingInput.value) !== -1) &&
+  (elevatorInput.value === DEFAULT_VALUE || ad.offer.features.indexOf(elevatorInput.value) !== -1) &&
+  (conditionerInput.value === DEFAULT_VALUE || ad.offer.features.indexOf(conditionerInput.value) !== -1))));
 
 
 const createPopup = (author, offer) => {
@@ -166,8 +90,8 @@ const createMarker = (location, popup) => {
 
   const icon = L.icon({
     iconUrl: IconData.URL,
-    iconSize: IconData.SIZE,
-    iconAnchor: IconData.ANCHOR,
+    iconSize: IconData.SIZE_VALUES,
+    iconAnchor: IconData.ANCHOR_COORDS,
   });
 
   const adMarker = L.marker(
@@ -189,11 +113,9 @@ const createMarker = (location, popup) => {
 
 const renderAdList = (ads) =>{
   markersArray.splice(0, ADS_COUNT - 1);
-
-  const afterFilteringAdsArray = useFilters(ads);
   markersGroup.clearLayers();
 
-  afterFilteringAdsArray.slice(0, ADS_COUNT).forEach(({author, location, offer}) => {
+  useFilters(ads).slice(0, ADS_COUNT).forEach(({author, location, offer}) => {
     const cardElement = createPopup(author, offer);
     const adMarker = createMarker(location, cardElement);
     adMarker.addTo(markersGroup);
